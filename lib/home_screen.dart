@@ -1,53 +1,53 @@
 import 'package:flutter/material.dart';
+import 'package:padmakanya_app/models/event.dart';
 import 'package:padmakanya_app/screens/about_screen.dart';
+import 'package:padmakanya_app/widgets/course_card.dart';
+import 'package:padmakanya_app/widgets/events_tile.dart';
 import 'package:padmakanya_app/widgets/faculty_card.dart';
+import 'package:padmakanya_app/widgets/heading.dart';
 
-void main() {
-  runApp(const MaterialApp(
-    title: "PadmaKanya",
-    home: HomeScreen(),
-  ));
-}
-
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class HomeWidget extends StatelessWidget {
+  const HomeWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(
-          children: [
-            Image.asset("assets/logo.png", width: 50, height: 50),
-            const SizedBox(width: 20),
-            const Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Padmakanya Multiple Campus",
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                  ),
+        centerTitle: false,
+        title: Row(children: [
+          Image.asset(
+            "assets/logo.png",
+            width: 40,
+          ),
+          const SizedBox(width: 15), // coloumn for height
+          const Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Padmakanya Multiple Campus",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
                 ),
-                Text(
-                  "Bagbazar, Kathmandu",
-                  style: TextStyle(
-                    fontSize: 15,
-                  ),
+              ),
+              Text(
+                "Baghbazar,Kathmandu",
+                style: TextStyle(
+                  fontSize: 15,
                 ),
-              ],
-            ),
-          ],
-        ),
+              ),
+            ],
+          ),
+        ]),
       ),
       body: SingleChildScrollView(
+        padding: EdgeInsets.all(20.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(20),
-              margin: const EdgeInsets.all(10),
               decoration: const BoxDecoration(
                 color: Color.fromARGB(255, 235, 232, 232),
               ),
@@ -80,79 +80,73 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
-            const Column(
-              children: [Text("Our Faculties")],
-            ),
-            const SingleChildScrollView(
+            Heading(text: "Our Faculties"),
+            SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
                   FacultyCard(
-                    text: 'Faculty of Humanities and Social Science',
+                    text: "Faculty of Humanities and Social Science",
                   ),
                   SizedBox(width: 20),
                   FacultyCard(
-                    text: 'Faculty of Management',
+                    text: "Faculty of management",
                   ),
                   SizedBox(width: 20),
-                  FacultyCard(text: 'Institute of Science and Technology'),
-                  SizedBox(width: 20),
+                  FacultyCard(
+                    text: "Institute of Science and Technology",
+                  ),
                 ],
               ),
             ),
-            const SizedBox(height: 30),
-            // Replacing Heading with Text
-            const Text(
-              "Our Courses",
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 15),
+            SizedBox(height: 30),
+            Heading(text: "Our Courses"),
+            SizedBox(height: 15),
             GridView.count(
               crossAxisCount: 2,
               shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
+              mainAxisSpacing: 20,
+              crossAxisSpacing: 20,
+              childAspectRatio: 0.8,
+              physics: NeverScrollableScrollPhysics(),
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: const Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "BCA",
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ],
-                  ),
+                CourseCard(
+                  title: "BCA",
+                  subtitle: "Bachelor in Computer Application",
                 ),
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: const Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "BCA",
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ],
-                  ),
+                CourseCard(
+                  title: "Bsc.CSIT",
+                  subtitle:
+                      "Bachelor of Computer Science and Information Technology",
                 ),
-                // Add more containers for additional courses if needed
+                CourseCard(
+                  title: "BBS",
+                  subtitle: "Bachelor of Business Study",
+                ),
+                CourseCard(
+                  title: "BSW",
+                  subtitle: "Bachelor of Social Work",
+                ),
+                CourseCard(
+                  title: "BIT",
+                  subtitle: "Bachelor of Information Technology",
+                ),
               ],
+            ),
+            Heading(text: "Events"),
+            ListView.builder(
+              itemCount: events.length,
+              shrinkWrap: true,
+              itemBuilder: (BuildContext context, int index) {
+                Event abc = events[index];
+                return Padding(
+                  padding: EdgeInsets.only(bottom: 10),
+                  child: EventTile(
+                    title: abc.title,
+                    description: abc.description,
+                  ),
+                );
+              },
             ),
           ],
         ),

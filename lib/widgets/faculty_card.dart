@@ -10,10 +10,10 @@ class FacultyCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 200,
-      height: 200,
+      height: 230,
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Color(0xffDDDDDD),
+        color: const Color(0xffDDDDDD),
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: Column(

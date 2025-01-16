@@ -3,9 +3,9 @@ import 'package:padmakanya_app/home_screen.dart';
 
 void main() {
   runApp(
-    MaterialApp(
-      title: "Padmakanya App",
-      home:  HomeScreen(),
+    const MaterialApp(
+      title: "Flutter training",
+      home: HomeWidget(),
     ),
   );
 }
